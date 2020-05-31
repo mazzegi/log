@@ -36,7 +36,7 @@ func createLogger() *log.NamedLogger {
 
 func main() {
 	l := createLogger()
-	log.InstallGlb(l)
+	log.Install(l)
 	defer l.Close()
 
 	log.Debugf("a simple debug message %d", 42)

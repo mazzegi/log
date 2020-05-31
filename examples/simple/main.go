@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"time"
 
@@ -43,7 +44,7 @@ func main() {
 	log.Infof("a simple info message %q", "dude")
 	log.Warnf("a simple warn message %T", true)
 	log.Errorf("a simple error message %f", 1.23)
-	//log.Fatalf("finally ... %v", fmt.Errorf("an expected error occurred"))
+	defer log.Fatalf("finally ... %v", fmt.Errorf("an expected error occurred"))
 
 	c := NewComponent("comp-x")
 	c.Do()

@@ -12,6 +12,12 @@ func NewMultiWriter(targets ...Writer) *MultiWriter {
 	}
 }
 
+func (mw *MultiWriter) Close() {
+	for _, t := range mw.targets {
+		t.Close()
+	}
+}
+
 func (mw *MultiWriter) Write(e entry.Entry) {
 	for _, t := range mw.targets {
 		t.Write(e)

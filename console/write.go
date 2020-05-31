@@ -41,6 +41,8 @@ func NewWriter(opts ...Option) *Writer {
 	return w
 }
 
+func (w *Writer) Close() {}
+
 func (w *Writer) Write(e entry.Entry) {
 	w.writer.Write([]byte(w.formatter.Format(e) + "\n"))
 }

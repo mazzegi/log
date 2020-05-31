@@ -2,7 +2,6 @@ package log
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/mazzegi/log/console"
 	"github.com/mazzegi/log/entry"
@@ -30,45 +29,13 @@ func Fatalf(s string, args ...interface{}) {
 }
 
 //
-type Writer interface {
-	Write(e entry.Entry)
+
+type Logger interface {
+	Logf(level entry.Level, s string, args ...interface{})
 }
 
-var logger = NewLogger("default")
+var logger Logger = NewNamed("default", console.NewWriter())
 
-func InstallGlobal(l *Logger) {
+func Install(l Logger) {
 	logger = l
-}
-
-type Option func(l *Logger)
-
-func WithWriter(w Writer) Option {
-	return func(l *Logger) {
-		l.writer = w
-	}
-}
-
-type Logger struct {
-	writer Writer
-	name   string
-}
-
-func NewLogger(name string, opts ...Option) *Logger {
-	l := &Logger{
-		writer: console.NewWriter(),
-		name:   name,
-	}
-	for _, opt := range opts {
-		opt(l)
-	}
-	return l
-}
-
-func (l *Logger) Logf(level entry.Level, s string, args ...interface{}) {
-	l.writer.Write(entry.Entry{
-		Time:      time.Now(),
-		Level:     level,
-		Component: l.name,
-		Message:   fmt.Sprintf(s, args...),
-	})
 }

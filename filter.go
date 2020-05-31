@@ -14,6 +14,10 @@ func NewFilter(accept func(e entry.Entry) bool, next Writer) *Filter {
 	}
 }
 
+func (f *Filter) Close() {
+	f.next.Close()
+}
+
 func (f *Filter) Write(e entry.Entry) {
 	if !f.accept(e) {
 		return

@@ -27,5 +27,5 @@ func (w *Writer) Close() {
 }
 
 func (w *Writer) Write(e entry.Entry) {
-	fmt.Fprintf(w.file, "%s [%s] [%s] %s\n", e.Time.Format("2006-01-02T15:04:05.000"), e.Component, e.Level, e.Message)
+	fmt.Fprintf(w.file, "%s [%s] [%s] [%s] %s\n", e.Time.Format("2006-01-02T15:04:05.000"), e.Program, e.Component, e.Level, e.Message)
 }

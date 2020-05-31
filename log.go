@@ -8,30 +8,30 @@ import (
 )
 
 func Debugf(s string, args ...interface{}) {
-	logger.Logf(entry.LevelDebug, s, args...)
+	logger.Log(entry.Make(entry.LevelDebug, s, args...))
 }
 
 func Infof(s string, args ...interface{}) {
-	logger.Logf(entry.LevelInfo, s, args...)
+	logger.Log(entry.Make(entry.LevelInfo, s, args...))
 }
 
 func Warnf(s string, args ...interface{}) {
-	logger.Logf(entry.LevelWarn, s, args...)
+	logger.Log(entry.Make(entry.LevelWarn, s, args...))
 }
 
 func Errorf(s string, args ...interface{}) {
-	logger.Logf(entry.LevelError, s, args...)
+	logger.Log(entry.Make(entry.LevelError, s, args...))
 }
 
 func Fatalf(s string, args ...interface{}) {
-	logger.Logf(entry.LevelFatal, s, args...)
+	logger.Log(entry.Make(entry.LevelFatal, s, args...))
 	panic(fmt.Sprintf(s, args...))
 }
 
 //
 
 type Logger interface {
-	Logf(level entry.Level, s string, args ...interface{})
+	Log(e entry.Entry)
 }
 
 var logger Logger = NewNamed("default", console.NewWriter())

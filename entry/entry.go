@@ -1,6 +1,9 @@
 package entry
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 type Level string
 
@@ -15,6 +18,15 @@ const (
 type Entry struct {
 	Time      time.Time
 	Level     Level
+	Program   string
 	Component string
 	Message   string
+}
+
+func Make(level Level, s string, args ...interface{}) Entry {
+	return Entry{
+		Time:    time.Now(),
+		Level:   level,
+		Message: fmt.Sprintf(s, args...),
+	}
 }

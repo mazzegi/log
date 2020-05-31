@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"os"
+	"time"
 
 	"github.com/mazzegi/log"
 	"github.com/mazzegi/log/console"
@@ -43,5 +43,27 @@ func main() {
 	log.Infof("a simple info message %q", "dude")
 	log.Warnf("a simple warn message %T", true)
 	log.Errorf("a simple error message %f", 1.23)
-	log.Fatalf("finally ... %v", fmt.Errorf("an expected error occurred"))
+	//log.Fatalf("finally ... %v", fmt.Errorf("an expected error occurred"))
+
+	c := NewComponent("comp-x")
+	c.Do()
+}
+
+type Component struct {
+	name string
+	*log.Hook
+}
+
+func NewComponent(name string) *Component {
+	c := &Component{
+		name: name,
+		Hook: log.ComponentHook(name),
+	}
+	return c
+}
+
+func (c *Component) Do() {
+	c.Infof("did stuff")
+	c.Warnf("go to work in %s", 5*time.Minute)
+	c.Errorf("go to work failed ...")
 }

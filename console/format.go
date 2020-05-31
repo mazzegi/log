@@ -36,7 +36,7 @@ func (f ColorFormatter) Format(e entry.Entry) string {
 	default:
 		cr = fgWhite
 	}
-	s := fmt.Sprintf("%s [%s] [%s] %s", e.Time.Format("2006-01-02T15:04:05.000"), e.Component, e.Level, e.Message)
+	s := fmt.Sprintf("%s [%s] [%s] [%s] %s", e.Time.Format("2006-01-02T15:04:05.000"), e.Program, e.Component, e.Level, e.Message)
 	return f.colored(cr, s)
 }
 

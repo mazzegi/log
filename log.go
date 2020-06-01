@@ -34,7 +34,7 @@ type Logger interface {
 	Log(e entry.Entry)
 }
 
-var logger Logger = NewNamed("default", console.NewWriter())
+var logger Logger = NewStdLogger("default", console.NewWriter())
 
 func Install(l Logger) {
 	logger = l

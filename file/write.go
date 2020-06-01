@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 
 	"github.com/mazzegi/log/entry"
 )
@@ -13,6 +14,10 @@ type Writer struct {
 }
 
 func NewWriter(path string) (*Writer, error) {
+	err := os.MkdirAll(filepath.Dir(path), os.ModePerm)
+	if err != nil {
+		return nil, err
+	}
 	f, err := os.OpenFile(path, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		return nil, err

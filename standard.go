@@ -9,24 +9,24 @@ type Writer interface {
 	Close()
 }
 
-type NamedLogger struct {
+type StdLogger struct {
 	name   string
 	writer Writer
 }
 
-func NewNamed(name string, w Writer) *NamedLogger {
-	l := &NamedLogger{
+func NewStdLogger(name string, w Writer) *StdLogger {
+	l := &StdLogger{
 		name:   name,
 		writer: w,
 	}
 	return l
 }
 
-func (l *NamedLogger) Close() {
+func (l *StdLogger) Close() {
 	l.writer.Close()
 }
 
-func (l *NamedLogger) Log(e entry.Entry) {
+func (l *StdLogger) Log(e entry.Entry) {
 	if e.Program == "" {
 		e.Program = l.name
 	}
